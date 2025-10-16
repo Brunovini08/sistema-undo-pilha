@@ -77,9 +77,16 @@ namespace sistema_undo_pilha
 
         public void ExibirPilha()
         {
-            for (int i = this.Head - 1; i >= 0; i--)
+            if (this.Vazia())
             {
-                Console.WriteLine(this.Elementos[i]);
+                Console.WriteLine("Pilha vazia");
+            }
+            else
+            {
+                for (int i = this.Head - 1; i >= 0; i--)
+                {
+                    Console.WriteLine(this.Elementos[i]);
+                }
             }
         }
     }
