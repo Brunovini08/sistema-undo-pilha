@@ -8,19 +8,21 @@ namespace sistema_undo_pilha
 {
     public class Pilha
     {
-        public string[] Elementos { get; private set; }
-        public int Head { get; private set; }
+        public EditorTexto Head { get; private set; }
+        public int contador { get; set; }
 
         public Pilha()
         {
-            this.Elementos = new string[10];
+            this.contador = 0;
+            this.Head = null;
         }
 
-        public void Empilhar(string elemento)
+        public void Empilhar(EditorTexto elemento)
         {
-            if (elemento == null)
+            if (this.Vazia())
             {
-                Console.WriteLine("Elemento nulo");
+                this.Head = elemento;
+                this.contador++;
             }
             else
             {
@@ -30,30 +32,39 @@ namespace sistema_undo_pilha
                 }
                 else
                 {
-                    this.Elementos[this.Head] = elemento;
-                    this.Head++;
+                    elemento.ProximoTexto = this.Head;
+                    this.Head = elemento;
+                    this.contador++;
                 }
             }
         }
 
-        public string Desempilhar()
+        public EditorTexto Desempilhar()
         {
             if (this.Vazia())
             {
-                return "Pilha vazia";
+                return null;
             }
             else
             {
-                this.Head--;
-                string elemento = this.Elementos[this.Head];
-                this.Elementos[this.Head] = null;
-                return elemento;
+                EditorTexto aux = this.Head;
+                this.Head = this.Head.ProximoTexto;
+                if(this.Head == null)
+                {
+                    this.Head = null;
+                    this.contador = 0;
+                }
+                if (this.contador > 0)
+                {
+                    this.contador--;
+                }
+                return aux;
             }
         }
 
         public bool Vazia()
         {
-            if (this.Elementos[0] == null)
+            if(Head == null)
             {
                 return true;
             }
@@ -65,7 +76,7 @@ namespace sistema_undo_pilha
 
         public bool Cheia()
         {
-            if (this.Head == this.Elementos.Length)
+            if (this.contador == 10)
             {
                 return true;
             }
@@ -83,10 +94,12 @@ namespace sistema_undo_pilha
             }
             else
             {
-                for (int i = this.Head - 1; i >= 0; i--)
+                EditorTexto aux = this.Head;
+                do
                 {
-                    Console.WriteLine(this.Elementos[i]);
-                }
+                    Console.WriteLine($"Mensagem: {aux.texto}");
+                    aux = aux.ProximoTexto;
+                } while (aux != null);
             }
         }
     }

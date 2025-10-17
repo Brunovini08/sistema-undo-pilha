@@ -12,20 +12,22 @@ void Menu()
     Console.Write("Escolha uma opção: ");
     int opcao = int.Parse(Console.ReadLine());
 
-    while(opcao != 4)
+    while (opcao != 4)
     {
         switch (opcao)
         {
             case 1:
                 Console.Write("Digite o texto: ");
                 string texto = Console.ReadLine();
-                editorTexto.Digitar(texto);
+                EditorTexto mensagem = new EditorTexto();
+                mensagem.texto = texto;
+                editorTexto.Digitar(mensagem);
                 break;
             case 2:
-                string textoDesfeito = editorTexto.Desfazer();
+                EditorTexto textoDesfeito = editorTexto.Desfazer();
                 if (textoDesfeito != null)
                 {
-                    Console.WriteLine($"Texto desfeito: {textoDesfeito}");
+                    Console.WriteLine($"Texto desfeito: {textoDesfeito.texto}");
                 }
                 break;
             case 3:

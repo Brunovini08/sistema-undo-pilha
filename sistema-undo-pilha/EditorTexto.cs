@@ -9,18 +9,19 @@ namespace sistema_undo_pilha
     public class EditorTexto
     {
         public Pilha Historico { get; private set; }
-
+        public EditorTexto ProximoTexto { get; set; }
+        public string texto { get; set; }
         public EditorTexto()
         {
             this.Historico = new Pilha();
         }
 
-        public void Digitar(string texto)
+        public void Digitar(EditorTexto message)
         {
-            this.Historico.Empilhar(texto);
+            this.Historico.Empilhar(message);
         }
 
-        public string Desfazer()
+        public EditorTexto Desfazer()
         {
             if (this.Historico.Vazia())
             {
