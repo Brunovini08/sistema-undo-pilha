@@ -53,7 +53,7 @@ namespace sistema_undo_pilha
 
         public bool Vazia()
         {
-            if (this.Head == 0)
+            if (this.Elementos[0] == null)
             {
                 return true;
             }
